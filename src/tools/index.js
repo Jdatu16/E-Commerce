@@ -1,1 +1,8 @@
-export { productAmountHandler, swapImageHandler } from "./handlers";
+export {
+  productAmountHandler,
+  swapImageHandler,
+  addProductHandler,
+  deleteItemHandler,
+  checkoutValidationHandler,
+  editItemAmountHandler,
+} from "./handlers";

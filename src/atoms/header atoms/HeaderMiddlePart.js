@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { WOMEN_PATH, HOME_PATH, MEN_PATH } from "../../constants/paths";
 
 const HeaderMiddle = styled.div`
@@ -37,10 +37,9 @@ const HeaderMiddle = styled.div`
   }
 `;
 
-export const HeaderMiddlePart = () => {
+export const HeaderMiddlePart = ({ location }) => {
   // by checking current location we determine which navlink should have
   // orange border-bottom
-  const { pathname: location } = useLocation();
 
   return (
     <HeaderMiddle>
@@ -61,18 +60,6 @@ export const HeaderMiddlePart = () => {
         className={location === WOMEN_PATH ? "nav-link nav-active" : "nav-link"}
       >
         Women
-      </NavLink>
-      <NavLink
-        to="/"
-        className={location === "about" ? "nav-link nav-active" : "nav-link"}
-      >
-        About
-      </NavLink>
-      <NavLink
-        to="/"
-        className={location === "contact" ? "nav-link nav-active" : "nav-link"}
-      >
-        Contact
       </NavLink>
     </HeaderMiddle>
   );

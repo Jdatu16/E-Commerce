@@ -16,6 +16,10 @@ body{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     font-family: "Lato", sans-serif;
+    @media only screen and (max-width: 620px) {
+    overflow: ${(props) =>
+      props.toggleSideMenu === "open" ? "hidden" : "visible"};
+  }
 }
 `;
 

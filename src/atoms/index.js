@@ -11,3 +11,8 @@ export {
   ProductPageLeftPart,
 } from "./product page atoms";
 export { CartSingleComponent } from "./CartSingleComponent";
+export {
+  CheckoutUserPart,
+  CheckoutOrderPart,
+  CheckoutDonePart,
+} from "./checkout atoms";

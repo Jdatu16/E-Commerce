@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import styled from "styled-components";
 import { CartSVG } from "../../svg";
 import { StateContext } from "../../App";
-import { productAmountHandler } from "../../tools";
+import { productAmountHandler, addProductHandler } from "../../tools";
 
 const ProductPageRightSide = styled.div`
   width: 40%;
@@ -177,7 +177,8 @@ const ProductPageAddProduct = styled.div`
 
 export const ProductPageRightPart = ({ product }) => {
   const [productAmount, setProductAmount] = useState(0);
-  const { setItems } = useContext(StateContext);
+
+  const { setItems, items } = useContext(StateContext);
 
   return (
     <ProductPageRightSide>
@@ -203,30 +204,18 @@ export const ProductPageRightPart = ({ product }) => {
             onClick={() => productAmountHandler(setProductAmount, -1)}
             style={{ color: "#ff7e1b", cursor: "pointer" }}
             className="fas fa-minus"
-          ></i>
+          />
           <p>{productAmount}</p>
           <i
             onClick={() => productAmountHandler(setProductAmount, +1)}
             style={{ color: "#ff7e1b", cursor: "pointer" }}
             className="fas fa-plus"
-          ></i>
+          />
         </div>
         <button
           onClick={() => {
             if (productAmount === 0) return null;
-            setItems((prev) => {
-              console.log(prev);
-              return [
-                ...prev,
-                {
-                  id: product.id,
-                  name: product.name,
-                  price: product.price,
-                  amount: productAmount,
-                  img: product.imageOne,
-                },
-              ];
-            });
+            addProductHandler(items, product, setItems, productAmount);
           }}
         >
           <CartSVG

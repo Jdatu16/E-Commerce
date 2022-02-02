@@ -4,5 +4,4 @@ export const HOME_PATH = "/";
 export const CONTENT_PATH = "/collection/product/:id";
 export const MEN_PATH = "/collection/men";
 export const WOMEN_PATH = "/collection/women";
-export const ABOUT_PATH = "/about";
-export const CONTACT_PATH = "/contact";
+export const CHECKOUT_PATH = "/checkout";

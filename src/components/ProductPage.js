@@ -1,15 +1,15 @@
-import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { products } from "../constants";
+import styled from "styled-components";
 import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { products } from "../constants";
 import { ProductPageLeftPart, ProductPageRightPart } from "../atoms";
 
-const ProductPageContainer = styled.div`
+const ProductPageContainer = styled(motion.div)`
   width: 80vw;
   position: absolute;
   top: 120px;
-  left: 50%;
-  transform: translate(-50%, 0);
+  left: calc(20vw / 2);
 
   display: flex;
   justify-content: space-evenly;
@@ -22,21 +22,35 @@ const ProductPageContainer = styled.div`
     padding-bottom: 20px;
     top: 80px;
     width: 100vw;
+    left: 0;
   }
 `;
 
 export const ProductPage = () => {
-  const { id } = useParams();
   const [product, setProduct] = useState({});
+  const { id } = useParams();
+
   useEffect(() => {
-    products.map((val) => {
+    let isMounted = true;
+    products.filter((val) => {
       if (val.id !== Number(id)) return null;
-      return setProduct(val);
+      if (isMounted) setProduct(val);
+      return null;
     });
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
 
   return (
-    <ProductPageContainer className="product-container">
+    <ProductPageContainer
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: 0.5 } }}
+      exit={{
+        opacity: 0,
+        transition: { duration: 0.5 },
+      }}
+    >
       <ProductPageLeftPart product={product} />
       <ProductPageRightPart product={product} />
     </ProductPageContainer>

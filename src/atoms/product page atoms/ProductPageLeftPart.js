@@ -134,13 +134,17 @@ export const ProductPageLeftPart = ({ product }) => {
   return (
     <ProductPageLeftSide>
       <PreviousSvg
+        stroke="#ff7e1b"
         onClick={() => swapImageHandler(setImageToShow, -1)}
         className="previous-svg"
       />
+
       <img className="product-image" src={changeImage()} alt="product" />
+
       <NextSvg
         onClick={() => swapImageHandler(setImageToShow, +1)}
         className="next-svg"
+        stroke="#ff7e1b"
       />
       <ProductPageThumbs>
         <ProductPageThumb
@@ -175,7 +179,6 @@ export const ProductPageLeftPart = ({ product }) => {
             onClick={() => {
               setImageToShow(2);
               setThumbClicked((prev) => {
-                console.log(thumbClicked);
                 return { ...prev, two: "seen", active: "two" };
               });
             }}

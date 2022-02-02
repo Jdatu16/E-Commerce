@@ -7,11 +7,11 @@ import { CloseSVG } from "../svg";
 // open sidemenu animation
 const slideRight = keyframes`
   0% {
-    right: 300px;
+    left: -300px;
     opacity: 0;
   }
   100% {
-    right: 0px;
+    left: 0;
     opacity: 1;
   }
 `;
@@ -19,17 +19,17 @@ const slideRight = keyframes`
 // close sidemenu animation
 const slideLeft = keyframes`
   0% {
-    right: 0px;
+    left: 0;
     opacity: 1;
   }
   100% {
-    right: 400px;
+    left: -300px;
     opacity: 0;
   }
 `;
 
 const SideMenuBackground = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.664);
@@ -39,6 +39,7 @@ const SideMenuBackground = styled.div`
   @media only screen and (min-width: 620px) {
     display: none;
   }
+  z-index: 10;
 `;
 
 const SideMenuContainer = styled.div`
@@ -49,7 +50,9 @@ const SideMenuContainer = styled.div`
   animation: ${(props) =>
       props.toggleSideMenu === "open" ? slideRight : slideLeft}
     0.4s ease forwards;
-  position: relative;
+  position: fixed;
+  z-index: 11;
+  left: 0;
 
   > :first-child {
     position: relative;
@@ -105,12 +108,6 @@ export const SideMenu = ({ toggleSideMenu, setToggleSideMenu }) => {
               to={WOMEN_PATH}
             >
               Women
-            </SideMenuNavlink>
-            <SideMenuNavlink onClick={() => setToggleSideMenu("close")} to="/">
-              About
-            </SideMenuNavlink>
-            <SideMenuNavlink onClick={() => setToggleSideMenu("close")} to="/">
-              Contact
             </SideMenuNavlink>
           </div>
         </SideMenuContainer>

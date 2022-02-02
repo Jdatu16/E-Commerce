@@ -1,8 +1,13 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
+import { StateContext } from "../App";
+import { deleteItemHandler } from "../tools";
 
-const CartSingleProduct = styled.div`
+const CartSingleProduct = styled(motion.div)`
   width: 85%;
   height: 30%;
+  max-height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,15 +33,20 @@ const CartSingleProduct = styled.div`
   }
 `;
 
-export const CartSingleComponent = ({ data, setItems }) => {
+export const CartSingleComponent = ({ data }) => {
+  const { items, setItems } = useContext(StateContext);
   const a = Number(data.amount);
   const b = Number(data.price);
   const totalPrice = a * b;
 
   return (
-    <CartSingleProduct>
+    <CartSingleProduct
+      key={data.id}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <img src={data.img} alt="product" />
-      <div className="cartList-product-info">
+      <div>
         <p>{data.name}</p>
         <div>
           <p>
@@ -46,8 +56,9 @@ export const CartSingleComponent = ({ data, setItems }) => {
         </div>
       </div>
       <i
-        onClick={() => setItems({})}
-        className="delete-icon fas fa-trash-alt"
+        style={{ cursor: "pointer" }}
+        onClick={() => deleteItemHandler(data.id, items, setItems)}
+        className="fas fa-trash-alt"
       ></i>
     </CartSingleProduct>
   );

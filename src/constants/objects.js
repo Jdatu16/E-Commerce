@@ -40,8 +40,8 @@ export const products = [
   {
     id: 1,
     gender: "male",
-    company: "SNEAKERS COMPANY",
-    name: "Limited Edition Sneakers",
+    company: "ADIDAS",
+    name: "Adidas - OZELIA",
     description:
       "These low-profile Sneaker are your perfect casual wear companion. Featuring a durable rubber outer sole, they'll withstand everything the weather can offer.",
     imageOne: shoe1Image1,
@@ -114,3 +114,10 @@ export const products = [
     oldPrice: "400.00",
   },
 ];
+
+export const userInfoTemplate = {
+  name: "",
+  adress: "",
+  phone: "",
+  comment: "",
+};

@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { StateContext } from "../../App";
 import avatar from "../../images/image-avatar.png";
 import { CartSVG } from "../../svg/";
@@ -31,7 +32,7 @@ const HeaderRight = styled.div`
   }
 `;
 
-const CartItemCount = styled.p`
+const CartItemCount = styled(motion.p)`
   position: absolute;
   right: 60px;
   top: 30px;
@@ -47,7 +48,7 @@ const CartItemCount = styled.p`
   }
 `;
 
-export const HeaderRightPart = () => {
+export const HeaderRightPart = ({ location }) => {
   // this state stores amount of all the products user adds to the cart
   const [itemCount, setItemCount] = useState(0);
   // if this app was actuall website then toggleProfile state
@@ -62,23 +63,26 @@ export const HeaderRightPart = () => {
       return setItemCount((prev) => prev + Number(v.amount));
     });
   }, [items]);
-
   return (
     <HeaderRight>
-      <CartSVG
-        style={{ cursor: "pointer" }}
-        onClick={() =>
-          setToggleCart((prev) => {
-            if (prev === "none" || prev === "close") return "open";
-            return "close";
-          })
-        }
-        width={22}
-        height={20}
-        fill="#69707D"
-      />
-      {items.length > 0 && (
-        <CartItemCount className="cart-item-count">{itemCount}</CartItemCount>
+      {location !== "/checkout" && (
+        <CartSVG
+          style={{ cursor: "pointer" }}
+          onClick={() =>
+            setToggleCart((prev) => {
+              if (prev !== "open") return "open";
+              return "close";
+            })
+          }
+          width={22}
+          height={20}
+          fill="#69707D"
+        />
+      )}
+      {items.length > 0 && location !== "/checkout" && (
+        <CartItemCount initial={{ scale: 0 }} animate={{ scale: 1 }}>
+          {itemCount}
+        </CartItemCount>
       )}
       <img
         onClick={() => setToggleProfile((prev) => !prev)}
